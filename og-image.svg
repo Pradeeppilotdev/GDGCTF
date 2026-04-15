@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">GDG CTF 2026</title>
+  <desc id="desc">GDG on Campus KSRCE online capture the flag cybersecurity event.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e1e1e"/>
+      <stop offset="100%" stop-color="#0f0f0f"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="50" y="50" width="1100" height="530" rx="24" fill="none" stroke="#f9ab00" stroke-width="4"/>
+
+  <text x="90" y="175" fill="#f9ab00" font-family="Google Sans Mono, monospace" font-size="32" font-weight="700" letter-spacing="2">GDG ON CAMPUS · KSRCE</text>
+  <text x="90" y="300" fill="#f0f0f0" font-family="Google Sans, Arial, sans-serif" font-size="110" font-weight="700">CTF 2026</text>
+  <text x="90" y="385" fill="#f9ab00" font-family="Google Sans, Arial, sans-serif" font-size="54" font-weight="700">Online Capture The Flag</text>
+  <text x="90" y="450" fill="#cfcfcf" font-family="Google Sans Mono, monospace" font-size="30">Cybersecurity Event · Hackathon · May 1, 2026</text>
+
+  <text x="990" y="545" fill="#f9ab00" font-family="Google Sans Mono, monospace" font-size="46" font-weight="700">{ }</text>
+</svg>
