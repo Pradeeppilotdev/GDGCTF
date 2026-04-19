@@ -92,6 +92,7 @@
   .hero-right {
     padding: 60px 5vw 60px 4vw;
     display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 0;
     position: relative; z-index: 2;
   }
 
@@ -240,22 +241,36 @@
   }
   @keyframes cur { 0%,100%{opacity:1} 50%{opacity:0} }
 
-  /* countdown box inside terminal */
-  .t-countdown {
-    margin-top: 12px; padding: 10px 14px;
-    border: 1px solid #30363d; border-radius: 8px;
-    background: #161b22;
+  /* ── external countdown strip ── */
+  .cd-strip {
+    width: 100%; max-width: 500px;
+    margin-top: 14px;
     display: grid; grid-template-columns: repeat(4,1fr);
-    gap: 6px; text-align: center;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
   }
-  .t-cd-num {
-    font-size: 20px; font-weight: 700; color: var(--yellow);
+  .cd-strip.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  .cd-block {
+    background: #0d1117;
+    border: 1.5px solid var(--yellow);
+    border-radius: 10px;
+    padding: 10px 6px 8px;
+    text-align: center;
+  }
+  .cd-num {
+    font-family: 'Google Sans Mono', monospace;
+    font-size: 22px; font-weight: 700; color: var(--yellow);
     display: block; line-height: 1;
   }
-  .t-cd-label {
-    font-size: 9px; color: #484f58;
-    letter-spacing: .08em; text-transform: uppercase;
-    margin-top: 3px; display: block;
+  .cd-label {
+    font-family: 'Google Sans Mono', monospace;
+    font-size: 9px; color: #555;
+    letter-spacing: .1em; text-transform: uppercase;
+    margin-top: 5px; display: block;
   }
 
   /* ─── SECTIONS ─── */
@@ -464,6 +479,14 @@
       <div class="terminal-body" id="termBody"></div>
       </div><!-- /.terminal -->
     </div><!-- /.terminal-wrap -->
+
+    <!-- countdown strip — fades in after flag line types out -->
+    <div class="cd-strip" id="cdStrip">
+      <div class="cd-block"><span class="cd-num" id="cd-d">--</span><span class="cd-label">days</span></div>
+      <div class="cd-block"><span class="cd-num" id="cd-h">--</span><span class="cd-label">hrs</span></div>
+      <div class="cd-block"><span class="cd-num" id="cd-m">--</span><span class="cd-label">min</span></div>
+      <div class="cd-block"><span class="cd-num" id="cd-s">--</span><span class="cd-label">sec</span></div>
+    </div>
   </div>
 </section>
 
@@ -479,7 +502,7 @@
       <div class="stat-card"><div class="stat-num">4h</div><div class="stat-label">Duration</div></div>
       <div class="stat-card"><div class="stat-num">20</div><div class="stat-label">Challenges</div></div>
       <div class="stat-card"><div class="stat-num">01</div><div class="stat-label">May 2026</div></div>
-      <div class="stat-card"><div class="stat-num">:)</div><div class="stat-label">Prizes await</div></div>
+      <div class="stat-card"><div class="stat-num">🏆</div><div class="stat-label">Prizes await</div></div>
     </div>
   </div>
 </section>
@@ -558,47 +581,52 @@ function getCD() {
   return { d, h: String(h).padStart(2,'0'), m: String(m).padStart(2,'0'), s: String(s).padStart(2,'0') };
 }
 
+function updateCDDisplay() {
+  const { d, h, m, s } = getCD();
+  const g = id => document.getElementById(id);
+  if (g('cd-d')) { g('cd-d').textContent = d; g('cd-h').textContent = h; g('cd-m').textContent = m; g('cd-s').textContent = s; }
+}
+
+setInterval(updateCDDisplay, 1000);
+updateCDDisplay();
+
 /* ── TERMINAL TYPEWRITER ── */
 const LINES = [
-  { type:'cmd',      text:'nmap -sV ctf.gdgksrce.dev' },
-  { type:'out',      text:'Starting Nmap 7.94 ...' },
-  { type:'out',      text:'Scanning 104.21.x.x [1000 ports]' },
-  { type:'success',  text:'PORT 80/tcp   open  http' },
-  { type:'success',  text:'PORT 443/tcp  open  https' },
-  { type:'success',  text:'PORT 9001/tcp open  ctf-platform' },
-  { type:'gap',      text:'' },
-  { type:'cmd',      text:'curl -s https://ctf.gdgksrce.dev/flag' },
-  { type:'out',      text:'HTTP/1.1 401 Unauthorized' },
-  { type:'red',      text:'{"error":"Register first, hacker."}' },
-  { type:'gap',      text:'' },
-  { type:'cmd',      text:'echo $FLAG' },
-  { type:'flag',     text:'GDG{r3g1st3r_4nd_f1nd_0ut_:)}' },
-  { type:'gap',      text:'' },
-  { type:'dim',      text:'─────────────────────────────' },
-  { type:'countdown',text:'' },
+  { type:'cmd',     text:'nmap -sV ctf.gdgksrce.dev' },
+  { type:'out',     text:'Starting Nmap 7.94 ...' },
+  { type:'out',     text:'Scanning 104.21.x.x [1000 ports]' },
+  { type:'success', text:'PORT 80/tcp   open  http' },
+  { type:'success', text:'PORT 443/tcp  open  https' },
+  { type:'success', text:'PORT 9001/tcp open  ctf-platform' },
+  { type:'gap',     text:'' },
+  { type:'cmd',     text:'curl -s https://ctf.gdgksrce.dev/flag' },
+  { type:'out',     text:'HTTP/1.1 401 Unauthorized' },
+  { type:'red',     text:'{"error":"Register first, hacker."}' },
+  { type:'gap',     text:'' },
+  { type:'cmd',     text:'echo $FLAG' },
+  { type:'flag',    text:'GDG{r3g1st3r_4nd_f1nd_0ut_:)}' },
 ];
 
 const body = document.getElementById('termBody');
+const cdStrip = document.getElementById('cdStrip');
 let li = 0, ci = 0, curEl = null;
+let stripShown = false;
+
+function showStrip() {
+  if (stripShown) return;
+  stripShown = true;
+  setTimeout(() => cdStrip.classList.add('show'), 320);
+}
+
+function hideStrip() {
+  stripShown = false;
+  cdStrip.classList.remove('show');
+}
 
 function makeEl(line) {
   const wrap = document.createElement('div');
   wrap.className = 't-line';
   if (line.type === 'gap') { wrap.style.marginBottom = '8px'; return wrap; }
-  if (line.type === 'dim') {
-    const s = document.createElement('span'); s.className = 't-dim'; s.textContent = line.text;
-    wrap.appendChild(s); return wrap;
-  }
-  if (line.type === 'countdown') {
-    const { d, h, m, s } = getCD();
-    const cd = document.createElement('div'); cd.className = 't-countdown'; cd.id = 'cdBlock';
-    cd.innerHTML = `
-      <div><span class="t-cd-num" id="cd-d">${d}</span><span class="t-cd-label">days</span></div>
-      <div><span class="t-cd-num" id="cd-h">${h}</span><span class="t-cd-label">hrs</span></div>
-      <div><span class="t-cd-num" id="cd-m">${m}</span><span class="t-cd-label">min</span></div>
-      <div><span class="t-cd-num" id="cd-s">${s}</span><span class="t-cd-label">sec</span></div>`;
-    wrap.appendChild(cd); return wrap;
-  }
   if (line.type === 'cmd') {
     const p = document.createElement('span'); p.className = 't-prompt'; p.textContent = '$ ';
     wrap.appendChild(p);
@@ -609,16 +637,22 @@ function makeEl(line) {
 
 function type() {
   if (li >= LINES.length) {
-    setTimeout(() => { body.innerHTML = ''; li = 0; ci = 0; curEl = null; type(); }, 3800);
+    showStrip();
+    setTimeout(() => {
+      body.innerHTML = '';
+      hideStrip();
+      li = 0; ci = 0; curEl = null;
+      type();
+    }, 4200);
     return;
   }
   const line = LINES[li];
   if (ci === 0) {
     const el = makeEl(line);
     body.appendChild(el);
-    if (['gap','dim','countdown'].includes(line.type)) {
+    if (line.type === 'gap') {
       li++; body.scrollTop = 9999;
-      setTimeout(type, line.type === 'dim' ? 90 : 0);
+      setTimeout(type, 60);
       return;
     }
     curEl = el.lastElementChild;
@@ -627,20 +661,14 @@ function type() {
     curEl.textContent = line.text.slice(0, ci + 1);
     ci++;
     body.scrollTop = 9999;
-    setTimeout(type, line.type === 'cmd' ? 52 + Math.random()*38 : 16 + Math.random()*12);
+    setTimeout(type, line.type === 'cmd' ? 50 + Math.random()*36 : 15 + Math.random()*12);
   } else {
     li++; ci = 0; curEl = null; body.scrollTop = 9999;
-    setTimeout(type, line.type === 'cmd' ? 380 : 100);
+    setTimeout(type, line.type === 'cmd' ? 360 : 90);
   }
 }
 
 setTimeout(type, 700);
-
-setInterval(() => {
-  const { d, h, m, s } = getCD();
-  const $ = id => document.getElementById(id);
-  if ($('cd-d')) { $('cd-d').textContent = d; $('cd-h').textContent = h; $('cd-m').textContent = m; $('cd-s').textContent = s; }
-}, 1000);
 </script>
 </body>
 </html>
