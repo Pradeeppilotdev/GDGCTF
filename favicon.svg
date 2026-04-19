@@ -1,0 +1,16 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="64" height="64" fill="#f0f0f0" rx="8"/>
+  
+  <!-- GDG Logo: 4 colored squares -->
+  <g transform="translate(12, 12)">
+    <!-- Blue -->
+    <rect x="0" y="0" width="16" height="16" rx="3" fill="#4285f4"/>
+    <!-- Red -->
+    <rect x="20" y="0" width="16" height="16" rx="3" fill="#ea4335"/>
+    <!-- Green -->
+    <rect x="0" y="20" width="16" height="16" rx="3" fill="#34a853"/>
+    <!-- Yellow -->
+    <rect x="20" y="20" width="16" height="16" rx="3" fill="#f9ab00"/>
+  </g>
+</svg>
