@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="404 - Page not found. Return to GDG KSRCE CTF 2026.">
+<meta name="theme-color" content="#1e1e1e">
+<title>404 - Page Not Found | GDG KSRCE CTF 2026</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Google+Sans+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #f9ab00;
+    --yellow-deep: #e69900;
+    --black: #1e1e1e;
+    --off-white: #f0f0f0;
+    --stroke: 2.5px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--off-white);
+    color: var(--black);
+    font-family: 'Google Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .container {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  h1 {
+    font-size: clamp(64px, 12vw, 120px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--yellow);
+    font-family: 'Google Sans Mono', monospace;
+    letter-spacing: 0.08em;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--black);
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    color: var(--black);
+    opacity: 0.8;
+  }
+
+  a {
+    display: inline-block;
+    padding: 12px 32px;
+    background: var(--black);
+    color: var(--yellow);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 700;
+    font-family: 'Google Sans Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 2px solid var(--black);
+  }
+
+  a:hover {
+    background: var(--yellow);
+    color: var(--black);
+  }
+
+  .error-code {
+    font-family: 'Google Sans Mono', monospace;
+    font-size: 14px;
+    color: var(--yellow);
+    margin-top: 48px;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>404</h1>
+  <h2>Challenge Not Found</h2>
+  <p>The page you're looking for doesn't exist or has been removed. Navigate back to the CTF challenge hub.</p>
+  <a href="/">← Return to CTF</a>
+  <div class="error-code">Error Code: File Not Found</div>
+</div>
+</body>
+</html>

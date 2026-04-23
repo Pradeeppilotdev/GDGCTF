@@ -10,5 +10,20 @@
   },
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+  "site": {
+    "bucket": ".",
+    "include": ["*.html", "*.css", "*.js", "*.svg", "*.png", "*.xml", "*.txt"],
+    "exclude": ["node_modules"]
+  },
+  "env": {
+    "production": {
+      "routes": [
+        {
+          "pattern": "https://gdgctf.tech/*",
+          "zone_name": "gdgctf.tech"
+        }
+      ]
+    }
+  }
 }

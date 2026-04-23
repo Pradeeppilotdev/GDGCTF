@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/favicon.svg",
+    "/og-image.png",
+    "/og-image.svg",
+    "/*.html",
+    "/*.xml",
+    "/*.txt"
+  ]
+}
