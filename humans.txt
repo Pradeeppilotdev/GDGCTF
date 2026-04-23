@@ -1,0 +1,18 @@
+/* TEAM */
+Organization: Google Developer Groups KSRCE
+Website: https://gdgctf.tech
+Location: K.S.R. College of Engineering, Tamil Nadu, India
+
+/* SITE */
+Name: GDG KSRCE CTF 2026
+Description: Capture The Flag Cybersecurity Competition
+Launched: 2026-04-15
+Language: English
+Charset: UTF-8
+
+/* THANKS */
+Thanks to all participants and volunteers!
+
+/* STANDARDS */
+Standards: HTML5, CSS3, JavaScript ES6+
+Components: Cloudflare Workers, Wrangler
