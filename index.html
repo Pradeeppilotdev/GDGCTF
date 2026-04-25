@@ -391,6 +391,49 @@
   footer p { font-family: 'Google Sans Mono', monospace; font-size: 11px; color: #3a3a3a; letter-spacing: .04em; }
   footer a { color: var(--yellow); text-decoration: none; }
 
+  .footer-social {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .footer-social span {
+    font-family: 'Google Sans Mono', monospace;
+    font-size: 11px;
+    color: #666;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid #303030;
+    border-radius: 999px;
+    background: #151515;
+    color: var(--off-white);
+    font-family: 'Google Sans Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+
+  .social-link:hover {
+    transform: translateY(-1px);
+    border-color: var(--yellow);
+    background: #1b1b1b;
+  }
+
+  .social-link svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -402,6 +445,8 @@
     .about-stats { grid-template-columns: 1fr 1fr; }
     .tl-item { border-right: none; border-bottom: var(--stroke) solid var(--black); }
     .tl-item:last-child { border-bottom: none; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .footer-social { width: 100%; }
   }
 </style>
 </head>
@@ -536,7 +581,7 @@
     <div class="track-card featured reveal reveal-delay-5"><div class="track-icon">*</div><h3>Misc / Bonus</h3><p>Wildcards and surprise categories. Expect the unexpected — creativity rewarded.</p><span class="track-tag">SURPRISE</span></div>
   </div>
 </section>
-<!--Checking -->
+<!--Checking-->
 <!-- TIMELINE -->
 <section class="timeline-section" id="schedule">
   <div class="section-label">// event schedule</div>
@@ -567,7 +612,21 @@
 
 <footer>
   <p>© 2026 GDG on Campus KSRCE · K.S.R. College of Engineering, Tiruchengode</p>
-  <p>Organised with ♥ by <a href="#">GDG on Campus KSRCE</a> · <a href="#">#GDGOnCampus</a></p>
+  <div class="footer-social">
+    <span>Follow us</span>
+    <a class="social-link" href="https://www.linkedin.com/company/gdg-ksriet24/" target="_blank" rel="noopener noreferrer" aria-label="GDG KSRCE on LinkedIn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-12h4v2"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a class="social-link" href="https://x.com/gdgksrce" target="_blank" rel="noopener noreferrer" aria-label="GDG KSRCE on X">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l16 16"/><path d="M20 4L4 20"/></svg>
+      X
+    </a>
+    <a class="social-link" href="https://www.instagram.com/gdg_ksrce/" target="_blank" rel="noopener noreferrer" aria-label="GDG KSRCE on Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      Instagram
+    </a>
+  </div>
 </footer>
 
 <script>
