@@ -434,6 +434,84 @@
     flex-shrink: 0;
   }
 
+  /* ─── EASTER EGG ─── */
+  .egg-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.62);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.24s ease;
+  }
+
+  .egg-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .egg-card {
+    width: min(94vw, 520px);
+    background: #101216;
+    color: #e6edf3;
+    border: var(--stroke) solid var(--yellow);
+    border-radius: 18px;
+    box-shadow: 10px 12px 0px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+
+  .egg-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(249, 171, 0, 0.28);
+    background: #171a20;
+  }
+
+  .egg-head strong {
+    font-family: 'Google Sans Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .06em;
+    color: var(--yellow);
+    text-transform: uppercase;
+  }
+
+  .egg-close {
+    border: 1px solid rgba(249, 171, 0, 0.3);
+    background: transparent;
+    color: #f5f5f5;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-family: 'Google Sans Mono', monospace;
+    font-size: 11px;
+  }
+
+  .egg-close:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+  }
+
+  .egg-body {
+    padding: 18px 16px 20px;
+    font-family: 'Google Sans Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .egg-body .flag {
+    display: inline-block;
+    margin-top: 6px;
+    color: var(--yellow);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -629,6 +707,20 @@
   </div>
 </footer>
 
+<div class="egg-modal" id="eggModal" aria-hidden="true">
+  <div class="egg-card" role="dialog" aria-modal="true" aria-labelledby="eggTitle">
+    <div class="egg-head">
+      <strong id="eggTitle">Secret Terminal</strong>
+      <button class="egg-close" id="eggClose" type="button" aria-label="Close secret terminal">Close</button>
+    </div>
+    <div class="egg-body">
+      <div>> access granted: nostalgia.protocol</div>
+      <div>> nice combo. you unlocked a bonus teaser.</div>
+      <div class="flag">GDG{konami_unlocked_but_real_flags_are_live_only}</div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ── SCROLL REVEAL ── */
 const io = new IntersectionObserver(entries => {
@@ -745,6 +837,42 @@ function type() {
 }
 
 setTimeout(type, 700);
+
+/* ── EASTER EGG: KONAMI CODE ── */
+const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+const entered = [];
+const eggModal = document.getElementById('eggModal');
+const eggClose = document.getElementById('eggClose');
+
+function openEggModal() {
+  eggModal.classList.add('show');
+  eggModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeEggModal() {
+  eggModal.classList.remove('show');
+  eggModal.setAttribute('aria-hidden', 'true');
+}
+
+window.addEventListener('keydown', (e) => {
+  const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+  entered.push(key);
+  if (entered.length > konami.length) entered.shift();
+  if (konami.every((k, i) => entered[i] === k)) {
+    openEggModal();
+    entered.length = 0;
+  }
+  if (e.key === 'Escape' && eggModal.classList.contains('show')) {
+    closeEggModal();
+  }
+});
+
+eggClose.addEventListener('click', closeEggModal);
+eggModal.addEventListener('click', (e) => {
+  if (e.target === eggModal) closeEggModal();
+});
+
+console.log('Hint: some classic key combos still work here.');
 </script>
 </body>
 </html>
